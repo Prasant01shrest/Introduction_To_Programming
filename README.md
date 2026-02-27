@@ -29,6 +29,21 @@ secure-chat/
 
 Install the dependency:
 
-```bash
+```Bash
 pip install -r requirements.txt
 ```
+
+## How to Run 
+### 1. Start the Server
+```Bash
+python server.py
+```
+The server will start on 127.0.0.1 : 8000
+
+### 2. Start the Clients
+Open one or more new terminals and run:
+```Bash
+python client.py
+```
+
+Each client opens a GUI client window.
