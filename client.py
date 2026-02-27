@@ -8,12 +8,14 @@ import os
 from encrypt import generate_keys, encrypt_message, decrypt_message, serialize_public_key
 from cryptography.hazmat.primitives import serialization
 
+# Server address
 HOST = '127.0.0.1'
 PORT = 8000
 
+# Generate a fresh RSA key pair for this client
 private_key, public_key = generate_keys()
 
-
+# Main GUI client class
 class ChatClient(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -58,6 +60,7 @@ class ChatClient(tk.Tk):
         thread.daemon = True
         thread.start()
 
+    # Send a message to all known clients
     def send_message(self):
         message = self.msg_entry.get()
         if message.strip() == "":
@@ -73,6 +76,7 @@ class ChatClient(tk.Tk):
 
         self.msg_entry.delete(0, 'end')
 
+    # receives encrypted messages or key updates
     def receive_messages(self):
         while self.running:
             try:
@@ -94,13 +98,15 @@ class ChatClient(tk.Tk):
                 self.running = False
                 break
 
+    # Keys are updated silently (no UI message)
     def update_clients_public_keys(self, keys_dict):
         self.clients_public_keys.clear()
         for addr, key_str in keys_dict.items():
             if addr != str(self.client_socket.getsockname()):
                 pub_key = serialization.load_pem_public_key(key_str.encode())
                 self.clients_public_keys[addr] = pub_key
-        # keys updated silently
+
+    # Display a message in the chat window
     def add_message_bubble(self, text, sender='other'):
         self.chat_text.configure(state='normal')
         if sender == 'me':
@@ -117,13 +123,13 @@ class ChatClient(tk.Tk):
         self.chat_text.see('end')
         self.chat_text.configure(state='disabled')
 
-
+    # Clean shutdown when the window is closed
     def on_closing(self):
         self.running = False
         self.client_socket.close()
         self.destroy()
 
-
+# Program entry point
 if __name__ == "__main__":
     app = ChatClient()
     app.protocol("WM_DELETE_WINDOW", app.on_closing)
