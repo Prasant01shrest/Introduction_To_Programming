@@ -47,3 +47,17 @@ python client.py
 ```
 
 Each client opens a GUI client window.
+
+## Important Limitations
+### RSA message size
+
+This project encrypts chat messages directly with RSA.
+With a 2048-bit RSA key and OAEP padding, the maximum message size is very small
+(approximately 190 bytes).
+
+Long messages may fail to encrypt.
+
+###In real-world systems, the recommended design is:
+
+RSA for key exchange
+AES (symmetric encryption) for message encryption
