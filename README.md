@@ -20,3 +20,15 @@ secure-chat/
 ├── requirements.txt   # Lists required Python dependencies (e.g., cryptography)
 └── README.md          # Project documentation
 ```
+
+## Requirements
+
+- Python 3.9 or newer
+- Tkinter (comes bundled with standard Python on most systems)
+- cryptography library
+
+Install the dependency:
+
+```bash
+pip install -r requirements.txt
+```
