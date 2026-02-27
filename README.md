@@ -57,7 +57,7 @@ With a 2048-bit RSA key and OAEP padding, the maximum message size is very small
 
 Long messages may fail to encrypt.
 
-###In real-world systems, the recommended design is:
+### In real-world systems, the recommended design is:
 
 RSA for key exchange
 AES (symmetric encryption) for message encryption
