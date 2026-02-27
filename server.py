@@ -10,6 +10,8 @@ clients = {}
 
 #Sends a message to all the clients except for the sender
 def broadcast(message, sender_socket):
+    print("Ciphertext relayed", message)
+    #prints encrypted text on server terminal
     for client in clients:
         if client != sender_socket:
             try:
